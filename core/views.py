@@ -2,12 +2,15 @@ from django.shortcuts import render
 from .serializers import PostSerializer
 from .models import Post
 
-
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
 class PostApiView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
     def post(self,request,*args,**kwargs):
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
